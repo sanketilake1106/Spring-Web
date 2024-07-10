@@ -1,10 +1,3 @@
-<%--
-  Created by IntelliJ IDEA.
-  User: sanket
-  Date: 26-06-2024
-  Time: 11:46
-  To change this template use File | Settings | File Templates.
---%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ include file="allCss.jsp"%>
 <%@ include file="allJsp.jsp"%>
@@ -24,7 +17,7 @@
 
                                 <p class="text-center h1 fw-bold mb-5 mx-1 mx-md-4 mt-4">Sign up</p>
 
-                                <form method="post" action="user/addUser" class="mx-1 mx-md-4">
+                                <form method="post" action="user/addUser" class="mx-1 mx-md-4" enctype="multipart/form-data">
 
                                     <div class="d-flex flex-row align-items-center mb-4">
                                         <i class="fas fa-user fa-lg me-3 fa-fw"></i>
@@ -58,6 +51,7 @@
                                         </div>
                                     </div>
 
+
                                     <div class="form-check d-flex justify-content-center mb-5">
                                         <input class="form-check-input me-2" type="checkbox" value="" id="form2Example3c" />
                                         <label class="form-check-label" for="form2Example3">
@@ -72,6 +66,7 @@
                                 </form>
 
                             </div>
+                            <label><a href="login">Already have an account</a> </label>
                             <div class="col-md-10 col-lg-6 col-xl-7 d-flex align-items-center order-1 order-lg-2">
 
                                 <img src="https://mdbcdn.b-cdn.net/img/Photos/new-templates/bootstrap-registration/draw1.webp"
@@ -84,6 +79,7 @@
             </div>
         </div>
     </div>
+    <label><a href="login.jsp">Already have an account</a> </label>
 </section>
 </body>
 </html>

@@ -21,4 +21,6 @@ public class User {
     private String contact;
     @Column(length = 20)
     private String password;
+    @OneToOne(mappedBy = "user", cascade = CascadeType.REMOVE)
+    private Address address;
 }

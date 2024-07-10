@@ -1,6 +1,9 @@
 package com.maven.configruation;
 
+import com.maven.entities.Address;
 import com.maven.entities.User;
+import com.maven.services.AddressService;
+import com.maven.services.impl.AddressServiceImpl;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
@@ -9,6 +12,8 @@ import org.springframework.orm.hibernate5.HibernateTemplate;
 import org.springframework.orm.hibernate5.HibernateTransactionManager;
 import org.springframework.orm.hibernate5.LocalSessionFactoryBean;
 import org.springframework.transaction.annotation.EnableTransactionManagement;
+import org.springframework.web.multipart.commons.CommonsMultipartFile;
+import org.springframework.web.multipart.commons.CommonsMultipartResolver;
 import org.springframework.web.servlet.config.annotation.EnableWebMvc;
 import org.springframework.web.servlet.view.InternalResourceViewResolver;
 import com.maven.services.UserService;
@@ -45,7 +50,7 @@ public class SpringConfig {
         LocalSessionFactoryBean sf = new LocalSessionFactoryBean();
         sf.setDataSource(getDataSource());
         sf.setHibernateProperties(getProperty());
-        sf.setAnnotatedClasses(User.class);
+        sf.setAnnotatedClasses(User.class, Address.class);
         return sf;
     }
 
@@ -62,6 +67,20 @@ public class SpringConfig {
         UserServiceImpl usi = new UserServiceImpl();
         usi.setHibernateTemplate(getHibernateTemplate());
         return usi;
+    }
+
+    @Bean("addressService")
+    public AddressService getAddressService(){
+        AddressServiceImpl asi = new AddressServiceImpl();
+        asi.setHibernateTemplate(getHibernateTemplate());
+        return asi;
+    }
+
+    @Bean
+    public CommonsMultipartResolver commonsMultipartResolver(){
+        CommonsMultipartResolver resolver = new CommonsMultipartResolver();
+        resolver.setMaxUploadSize(1024 * 1024 *10);
+        return resolver;
     }
 
     @Bean
