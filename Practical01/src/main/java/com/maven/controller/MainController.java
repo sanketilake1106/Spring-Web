@@ -56,7 +56,7 @@ public class MainController {
     public String getAllUsers(@ModelAttribute("user") User user, HttpSession session){
         List<User> allUser = userService.getAllUser();
         session.setAttribute("user", allUser);
-        return "customersList";
+        return "dashboard";
     }
 
     @RequestMapping("/editProfile/{id}")
@@ -113,12 +113,30 @@ public class MainController {
     }
 
     @RequestMapping(value = "/editUser")
-    public String editUser(@ModelAttribute("user") User user,@ModelAttribute("address") Address address, HttpSession session){
+    public String editUser(@ModelAttribute("user") User user,@ModelAttribute("address") Address address,@RequestParam(value = "profileImage", required = false) MultipartFile file, HttpSession session) throws IOException {
+
+        String imagePath = "E:/spring Web/Practical01/src/main/webapp/WEB-INF/views/resources/image/";
+
+        // Check if the directory exists, create if not
+        File directory = new File(imagePath);
+        if (!directory.exists()) {
+            directory.mkdirs();
+        }
+
+        // Save the file to the specified path if a file was uploaded
+        if (file != null && !file.isEmpty()) {
+            String fileName = file.getOriginalFilename();
+            String filePath = imagePath + fileName;
+            File destinationFile = new File(filePath);
+            file.transferTo(destinationFile);
+            address.setProfileImage(fileName); // Set the file name only if a file was uploaded
+            System.out.println("Uploaded file name: " + fileName);
+        }
 
         userService.update1User(user);
-        address.setAddressId(user.getId());
         address.setUser(user);
-        addressService.updateAddress(address);
+        address.setAddressId(user.getId());
+        addressService.update1Address(address);
         List<User> allUser = userService.getAllUser();
         session.setAttribute("user", allUser);
         return "customersList";

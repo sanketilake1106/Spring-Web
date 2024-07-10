@@ -44,9 +44,10 @@
             for (User user : userList){
         %>
         <tr>
-            <form method="post" action="editUser">
-                <input type="hidden" name="password" value="<%=user.getPassword()%>" class="form-control">
-            <th scope="row"><input type="hidden" name="id" value="<%=user.getId()%>" class="form-control"></th>
+            <form method="post" action="editUser" >
+            <input type="hidden" name="password" value="<%=user.getPassword()%>" class="form-control">
+            <th scope="row"><input type="hidden" name="id" value="<%=user.getId()%>" class="form-control"><%=user.getId()%></th>
+            <input type="hidden" name="profileImage" value="<%=user.getAddress().getProfileImage()%>" class="form-control">
             <td><img src="resources/image/<%=user.getAddress().getProfileImage()%>" class="profile-image"></td>
             <td><input type="text" name="userName" value="<%=user.getUserName()%>" class="form-control"></td>
             <td><input type="text" name="email" value="<%=user.getEmail()%>" class="form-control"></td>
